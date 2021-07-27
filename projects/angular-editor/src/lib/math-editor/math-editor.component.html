@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Math Editor</h4>
+            <button type="button" class="close pull-right" (click)="bsModalRef.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <nav>
+            <div class="button-div">
+                <button type="button" class="btn btn-primary" (click) ="clear($event)" disabled>CLEAR</button>
+                <button type="button" class="btn btn-primary" (click)="undo($event)" disabled>UNDO</button>
+                <button type="button" class="btn btn-primary" (click)="redo($event)" disabled>REDO</button>
+                <button type="button" class="btn btn-primary" (click)="convert($event)">Convert</button>
+                <button type="button" class="btn btn-primary" (click)="insert($event)">Insert</button>
+            </div>
+        </nav>
+        <div class="modal-body" id="editor" #tref>
+        </div>
+    </div>
+</div>

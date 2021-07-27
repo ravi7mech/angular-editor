@@ -3,6 +3,8 @@ import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
 import {CustomClass} from './config';
+import {MathEditorComponent} from './math-editor/math-editor.component'
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 export interface UploadResponse {
   imageUrl: string;
@@ -10,7 +12,7 @@ export interface UploadResponse {
 
 @Injectable()
 export class AngularEditorService {
-
+  bsModalRef: BsModalRef;
   savedSelection: Range | null;
   selectedText: string;
   uploadUrl: string;
@@ -18,7 +20,8 @@ export class AngularEditorService {
 
   constructor(
     private http: HttpClient,
-    @Inject(DOCUMENT) private doc: any
+    @Inject(DOCUMENT) private doc: any,
+    private modalService: BsModalService
   ) { }
 
   /**
@@ -299,5 +302,9 @@ export class AngularEditorService {
         this.replaceWithOwnChildren(node);
       }
     });
+  }
+
+  openMyScriptEditor(){
+    this.bsModalRef = this.modalService.show(MathEditorComponent)
   }
 }

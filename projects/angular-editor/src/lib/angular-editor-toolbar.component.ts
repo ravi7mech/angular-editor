@@ -148,6 +148,8 @@ export class AngularEditorToolbarComponent {
 
   @Output() execute: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output() mathExecute: EventEmitter<string> = new EventEmitter<string>();
+
   @ViewChild('fileInput', {static: true}) myInputFile: ElementRef;
 
   public get isLinkButtonDisabled(): boolean {
@@ -168,6 +170,10 @@ export class AngularEditorToolbarComponent {
    */
   triggerCommand(command: string) {
     this.execute.emit(command);
+  }
+  
+  toggleMathEditor(){
+    this.mathExecute.emit();
   }
 
   /**

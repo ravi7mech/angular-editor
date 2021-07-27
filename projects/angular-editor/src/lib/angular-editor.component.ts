@@ -49,6 +49,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   focused = false;
   touched = false;
   changed = false;
+  
 
   focusInstance: any;
   blurInstance: any;
@@ -136,6 +137,11 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       }
       this.exec();
     }
+  }
+
+
+  mathExecute(){
+    this.editorService.openMyScriptEditor();
   }
 
   /**

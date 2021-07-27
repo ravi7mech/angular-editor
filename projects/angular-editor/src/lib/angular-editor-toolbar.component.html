@@ -159,4 +159,11 @@
             (click)="triggerCommand('toggleEditorMode')" [hidden]="isButtonHidden('toggleEditorMode')" tabindex="-1"><i
       class='fa fa-code'></i></button>
   </div>
+
+  <div class="angular-editor-toolbar-set">
+    <button [id]="'mathEditor-'+id" type="button" title="Math Editor" class="angular-editor-button"
+            tabindex="-1" (click)="toggleMathEditor()"><i
+      class='fa fa-calculator'></i></button>
+  </div>
+
 </div>
