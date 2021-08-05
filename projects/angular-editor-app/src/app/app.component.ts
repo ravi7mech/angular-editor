@@ -1,6 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import {AngularEditorConfig} from 'angular-editor';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+
+import {
+    NgxMention,
+    NgxMentionConfig,
+} from 'projects/ngx-mention/src/lib/ngx-mention.config';
+import { Users } from '../app/Users';
+
+
+interface CustomTemplateStructure {
+  id: number;
+  username: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -78,8 +91,51 @@ export class AppComponent implements OnInit {
       },
     ]
   };
+  
+  public items = Users;
+  public customSearchItems = Users;
+  public customDenotationItems = Users;
+  public minCharacterItems = Users;
+  public dropUpItems = Users;
+  public customTemplateItems = Users.map((item) => {
+      return {
+          username: item.value,
+          id: item.id,
+      };
+  });
 
-  constructor(private formBuilder: FormBuilder) {}
+  public customSearchNgxMentionConfig: NgxMentionConfig;
+  public customDenotationCharacterConfig: NgxMentionConfig;
+  public minCharactersConfig: NgxMentionConfig;
+  public dropUpConfig: NgxMentionConfig;
+  public customTemplateConfig: NgxMentionConfig<CustomTemplateStructure>;
+
+  @ViewChild('customTemplate')
+  public customTemplate: TemplateRef<NgTemplateOutlet>;
+
+  constructor(private formBuilder: FormBuilder,) {
+    this.customSearchNgxMentionConfig = {
+      disableSearch: true,
+  };
+
+  this.customDenotationCharacterConfig = {
+      denotationCharacter: '$',
+  };
+
+  this.minCharactersConfig = {
+      minimalCharacters: 3,
+  };
+
+  this.dropUpConfig = {
+      dropUp: true,
+  };
+
+  this.customTemplateConfig = {
+      formatSelected: (item) => {
+          return item.username;
+      },
+  };
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -99,4 +155,16 @@ export class AppComponent implements OnInit {
   onChange2(event) {
     console.warn(this.form.value);
   }
+
+  public onCustomSearchMentionSearch($event: string) {
+    this.customSearchItems = this.items.filter((item: NgxMention) => {
+        return item.value.toLowerCase().includes($event.toLowerCase());
+    });
+}
+
+public onMinCharacterSearchMentionSearch($event: string) {
+    this.minCharacterItems = this.items.filter((item: NgxMention) => {
+        return item.value.toLowerCase().includes($event.toLowerCase());
+    });
+}
 }

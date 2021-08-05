@@ -1,0 +1,29 @@
+<div
+    #container
+    class="ngx-mention"
+    [ngClass]="{
+        'ngx-mention--visible': !hidden,
+        'ngx-mention--drop-up': ngxMentionConfig.dropUp
+    }"
+>
+    <div
+        class="ngx-mention__item"
+        [ngClass]="{ 'ngx-mention__item--selected': i === activeIndex }"
+        *ngFor="let item of items; let i = index; trackBy: trackByItemId"
+        id="mention-item-{{ i }}"
+        (click)="onItemCLick(i)"
+    >
+        <ng-container *ngIf="customTemplate; else defaultTemplate">
+            <ng-container
+                *ngTemplateOutlet="
+                    customTemplate.template;
+                    context: { item: item }
+                "
+            >
+            </ng-container>
+        </ng-container>
+        <ng-template #defaultTemplate>
+            {{ item.value }}
+        </ng-template>
+    </div>
+</div>

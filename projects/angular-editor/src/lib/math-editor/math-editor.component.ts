@@ -54,7 +54,8 @@ export class MathEditorComponent implements AfterViewInit, OnDestroy {
     this.editorElement.close();
   }
   clear(event: Event) {
-    this.editorElement.editor.clear();
+    console.log(event)
+    this.domEditor.nativeElement.editor.clear();
   }
   convert(event: Event) {
     this.editorElement.editor.convert();

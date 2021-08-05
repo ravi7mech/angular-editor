@@ -1,0 +1,27 @@
+{
+  "name": "@netcreaties/ngx-mention",
+  "version": "1.1.0",
+  "peerDependencies": {
+    "@angular/common": ">=9.0.0",
+    "@angular/core": ">=9.0.0"
+  },
+  "author": {
+    "email": "info@royfreij.nl",
+    "name": "Roy Freij",
+    "url": "https://www.linkedin.com/in/roy-freij/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RFreij/ngx-mention.git"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "keywords": [
+      "Angular",
+      "mentions",
+      "ngx-mention",
+      "tag",
+      "autocomplete"
+  ]
+}
