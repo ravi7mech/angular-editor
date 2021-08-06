@@ -28,6 +28,12 @@
     "angular-wysiwyg-editor",
     "wysiwyg-editor",
     "rich",
-    "rich text editor"
+    "rich text editor",
+    
+    "Angular",
+    "mentions",
+    "ngx-mention",
+    "tag",
+    "autocomplete"
   ]
 }

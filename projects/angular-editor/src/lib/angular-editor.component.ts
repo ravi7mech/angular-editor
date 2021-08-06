@@ -15,15 +15,26 @@ import {
   Output,
   Renderer2,
   SecurityContext,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AngularEditorConfig, angularEditorConfig} from './config';
 import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component';
 import {AngularEditorService} from './angular-editor.service';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, NgTemplateOutlet} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {isDefined} from './utils';
+import {
+  NgxMention,
+  NgxMentionConfig,
+} from './ngx-mention/ngx-mention.config';
+//import { Users } from '../lib/Users';
+
+interface CustomTemplateStructure {
+  id: number;
+  username: string;
+}
 
 @Component({
   selector: 'angular-editor',
@@ -58,8 +69,39 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
   @Input() config: AngularEditorConfig = angularEditorConfig;
   @Input() placeholder = '';
   @Input() tabIndex: number | null;
+  @Input() Users:any;
+
+  //@Input() item = [];
 
   @Output() html;
+  
+  public items;
+  public customSearchItems;
+  public customDenotationItems;
+  public minCharacterItems;
+  public dropUpItems;
+  public customTemplateItems;
+  // public items = this.Users;
+  // public customSearchItems = Users;
+  // public customDenotationItems = Users;
+  // public minCharacterItems = Users;
+  // public dropUpItems = Users;
+  // public customTemplateItems = Users.map((item) => {
+  //     return {
+  //         username: item.value,
+  //         id: item.id,
+  //     };
+  // });
+
+  public customSearchNgxMentionConfig: NgxMentionConfig;
+  public customDenotationCharacterConfig: NgxMentionConfig;
+  public minCharactersConfig: NgxMentionConfig;
+  public dropUpConfig: NgxMentionConfig;
+  public customTemplateConfig: NgxMentionConfig<CustomTemplateStructure>;
+
+  @ViewChild('customTemplate')
+  public customTemplate: TemplateRef<NgTemplateOutlet>;
+
 
   @ViewChild('editor', {static: true}) textArea: ElementRef;
   @ViewChild('editorWrapper', {static: true}) editorWrapper: ElementRef;
@@ -91,20 +133,69 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     @Attribute('tabindex') defaultTabIndex: string,
     @Attribute('autofocus') private autoFocus: any
   ) {
+    
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
+    this.customSearchNgxMentionConfig = {
+      disableSearch: true,
+  };
+
+  this.customDenotationCharacterConfig = {
+      denotationCharacter: '$',
+  };
+
+  this.minCharactersConfig = {
+      minimalCharacters: 3,
+  };
+
+  this.dropUpConfig = {
+      dropUp: true,
+  };
+
+  this.customTemplateConfig = {
+      formatSelected: (item) => {
+          return item.username;
+      },
+  };
+    
+    
   }
 
   ngOnInit() {
     this.config.toolbarPosition = this.config.toolbarPosition ? this.config.toolbarPosition : angularEditorConfig.toolbarPosition;
-  }
+     
+    this.items = this.Users;
+    this.customSearchItems = this.Users;
+    this.customDenotationItems = this.Users;
+    this.minCharacterItems = this.Users;
+    this.dropUpItems = this.Users;
+    this.customTemplateItems = this.Users.map((item) => {
+        return {
+              username: item.value,
+              id: item.id,
+          };
+       })
+    }
+   
+  
 
   ngAfterViewInit() {
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
   }
+  /*mentions*/
+  public onCustomSearchMentionSearch($event: string) {
+    this.customSearchItems = this.items.filter((item: NgxMention) => {
+        return item.value.toLowerCase().includes($event.toLowerCase());
+    });
+}
 
+public onMinCharacterSearchMentionSearch($event: string) {
+    this.minCharacterItems = this.items.filter((item: NgxMention) => {
+        return item.value.toLowerCase().includes($event.toLowerCase());
+    });
+}
   onPaste(event: ClipboardEvent){
     if (this.config.rawPaste) {
       event.preventDefault();
@@ -113,6 +204,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
       return text;
     }
   }
+  
 
   /**
    * Executed command from editor header buttons

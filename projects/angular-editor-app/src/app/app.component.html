@@ -5,25 +5,16 @@
   <label for="test_input">Test input </label>
   <input id="test_input">
   <br><br>
-  <input
-        type="text"
-        [ncNgxMention]="customSearchItems"
-        [ngxMentionConfig]="customSearchNgxMentionConfig"
-        (searchTerm)="onCustomSearchMentionSearch($event)"
-        style="position: relative; line-height: 20px"
-    />
+  
     <br><br>
-  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [config]="config1" (ngModelChange)="onChange($event)"
+  <angular-editor id="editor1" [(ngModel)]="htmlContent1" [Users]="Users" [config]="config1" (ngModelChange)="onChange($event)"
                   (blur)="onBlur($event)"></angular-editor>
   <p class="html">
     HTML Output:  {{ htmlContent1 }}
   </p>
   <form [formGroup]="form">
     <angular-editor
-        [ncNgxMention]="customSearchItems"
-        [ngxMentionConfig]="customSearchNgxMentionConfig"
-        (searchTerm)="onCustomSearchMentionSearch($event)"
-        autofocus="true" id="editor2" formControlName="signature" [config]="config2" (ngModelChange)="onChange2($event)"></angular-editor>
+        autofocus="true" id="editor2" formControlName="signature" [Users]="Users" [config]="config2" (ngModelChange)="onChange2($event)"></angular-editor>
   </form>
   <p>
     Form Value: {{ form.value.signature }}

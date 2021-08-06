@@ -1,19 +1,12 @@
 import {Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import {AngularEditorConfig} from 'angular-editor';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { NgTemplateOutlet } from '@angular/common';
+import { Users } from 'projects/angular-editor-app/src/app/Users';
 
-import {
-    NgxMention,
-    NgxMentionConfig,
-} from 'projects/ngx-mention/src/lib/ngx-mention.config';
-import { Users } from '../app/Users';
-
-
-interface CustomTemplateStructure {
-  id: number;
-  username: string;
-}
+// interface CustomTemplateStructure {
+//   id: number;
+//   username: string;
+// }
 
 @Component({
   selector: 'app-root',
@@ -91,50 +84,50 @@ export class AppComponent implements OnInit {
       },
     ]
   };
-  
-  public items = Users;
-  public customSearchItems = Users;
-  public customDenotationItems = Users;
-  public minCharacterItems = Users;
-  public dropUpItems = Users;
-  public customTemplateItems = Users.map((item) => {
-      return {
-          username: item.value,
-          id: item.id,
-      };
-  });
+    Users = Users;
+  // public items = Users;
+  // public customSearchItems = Users;
+  // public customDenotationItems = Users;
+  // public minCharacterItems = Users;
+  // public dropUpItems = Users;
+  // public customTemplateItems = Users.map((item) => {
+  //     return {
+  //         username: item.value,
+  //         id: item.id,
+  //     };
+  // });
 
-  public customSearchNgxMentionConfig: NgxMentionConfig;
-  public customDenotationCharacterConfig: NgxMentionConfig;
-  public minCharactersConfig: NgxMentionConfig;
-  public dropUpConfig: NgxMentionConfig;
-  public customTemplateConfig: NgxMentionConfig<CustomTemplateStructure>;
+  // public customSearchNgxMentionConfig: NgxMentionConfig;
+  // public customDenotationCharacterConfig: NgxMentionConfig;
+  // public minCharactersConfig: NgxMentionConfig;
+  // public dropUpConfig: NgxMentionConfig;
+  // public customTemplateConfig: NgxMentionConfig<CustomTemplateStructure>;
 
-  @ViewChild('customTemplate')
-  public customTemplate: TemplateRef<NgTemplateOutlet>;
+  // @ViewChild('customTemplate')
+  // public customTemplate: TemplateRef<NgTemplateOutlet>;
 
   constructor(private formBuilder: FormBuilder,) {
-    this.customSearchNgxMentionConfig = {
-      disableSearch: true,
-  };
+  //   this.customSearchNgxMentionConfig = {
+  //     disableSearch: true,
+  // };
 
-  this.customDenotationCharacterConfig = {
-      denotationCharacter: '$',
-  };
+  // this.customDenotationCharacterConfig = {
+  //     denotationCharacter: '$',
+  // };
 
-  this.minCharactersConfig = {
-      minimalCharacters: 3,
-  };
+  // this.minCharactersConfig = {
+  //     minimalCharacters: 3,
+  // };
 
-  this.dropUpConfig = {
-      dropUp: true,
-  };
+  // this.dropUpConfig = {
+  //     dropUp: true,
+  // };
 
-  this.customTemplateConfig = {
-      formatSelected: (item) => {
-          return item.username;
-      },
-  };
+  // this.customTemplateConfig = {
+  //     formatSelected: (item) => {
+  //         return item.username;
+  //     },
+  // };
   }
 
   ngOnInit() {
@@ -156,15 +149,15 @@ export class AppComponent implements OnInit {
     console.warn(this.form.value);
   }
 
-  public onCustomSearchMentionSearch($event: string) {
-    this.customSearchItems = this.items.filter((item: NgxMention) => {
-        return item.value.toLowerCase().includes($event.toLowerCase());
-    });
-}
+//   public onCustomSearchMentionSearch($event: string) {
+//     this.customSearchItems = this.items.filter((item: NgxMention) => {
+//         return item.value.toLowerCase().includes($event.toLowerCase());
+//     });
+// }
 
-public onMinCharacterSearchMentionSearch($event: string) {
-    this.minCharacterItems = this.items.filter((item: NgxMention) => {
-        return item.value.toLowerCase().includes($event.toLowerCase());
-    });
-}
+// public onMinCharacterSearchMentionSearch($event: string) {
+//     this.minCharacterItems = this.items.filter((item: NgxMention) => {
+//         return item.value.toLowerCase().includes($event.toLowerCase());
+//     });
+// }
 }

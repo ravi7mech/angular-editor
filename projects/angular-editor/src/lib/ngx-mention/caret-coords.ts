@@ -117,8 +117,9 @@ export function getCaretCoordinates(element, position, options) {
     } else {
         style.overflow = 'hidden'; // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
     }
-
-    div.textContent = element.value.substring(0, position);
+     
+    console.log(element.innerText)
+    div.textContent = element.innerText.substring(0, position);
     // The second special handling for input type="text" vs textarea:
     // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
     if (isInput) div.textContent = div.textContent.replace(/\s/g, '\u00a0');
@@ -129,7 +130,8 @@ export function getCaretCoordinates(element, position, options) {
     // The  *only* reliable way to do that is to copy the *entire* rest of the
     // textarea's content into the <span> created at the caret position.
     // For inputs, just '.' would be enough, but no need to bother.
-    span.textContent = element.value.substring(position) || '.'; // || because a completely empty faux span doesn't render at all
+    console.log(element.innerText)
+    span.textContent = element.innerText.substring(position) || '.'; // || because a completely empty faux span doesn't render at all
     div.appendChild(span);
 
     let coordinates = {

@@ -20,6 +20,10 @@
           (mathExecute)="mathExecute()"
      ></angular-editor-toolbar>
 
+     <ng-template #customTemplate let-item="item">
+          <img src="https://media.geeksforgeeks.org/wp-content/uploads/20200630132503/iflag.jpg"
+          width="20" height="15">{{item.avatar}} {{ item.value }} {{ item.id }}
+      </ng-template>
      <div
           class="angular-editor-wrapper"
           #editorWrapper
@@ -42,6 +46,12 @@
                (keyup)="exec()"
                (mouseout)="onTextAreaMouseOut($event)"
                (paste)="onPaste($event)"
+               type="text"
+
+               [ncNgxMention]="customSearchItems"
+               [ngxMentionConfig]="customSearchNgxMentionConfig"
+               (searchTerm)="onCustomSearchMentionSearch($event)"
+               [customTemplate]="{ template: customTemplate }"
           >
           </div>
           <span class="angular-editor-placeholder">{{ placeholder || config['placeholder'] }}</span>

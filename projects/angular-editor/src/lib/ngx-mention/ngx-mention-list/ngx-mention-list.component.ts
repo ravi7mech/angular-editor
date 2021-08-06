@@ -35,6 +35,7 @@ export class NgxMentionListComponent {
         private readonly elementRef: ElementRef,
         private readonly renderer: Renderer2,
     ) {
+        console.log(this.itemClick)
         this.itemClick = new EventEmitter();
     }
 
@@ -50,12 +51,14 @@ export class NgxMentionListComponent {
         parentElement: HTMLInputElement | HTMLTextAreaElement,
     ): void {
         const nativeElement = this.elementRef.nativeElement;
-
+        console.log(nativeElement)
+        console.log(this.ngxMentionConfig)
         const coords = getCaretCoordinates(
             parentElement,
             parentElement.selectionStart,
             null,
         );
+        console.log(parentElement)
         coords.top =
             parentElement.offsetTop + coords.top - parentElement.scrollTop;
         coords.left =
@@ -167,6 +170,8 @@ export class NgxMentionListComponent {
     public resetScrollTop(): void {
         // Needs to be activated after the container is created
         setTimeout(() => {
+
+            console.log(this.container)
             this.container.nativeElement.scrollTop = 0;
         });
     }
