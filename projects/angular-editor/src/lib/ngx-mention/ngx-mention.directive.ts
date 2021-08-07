@@ -81,12 +81,12 @@ export class NgxMentionDirective implements OnInit, OnChanges, OnDestroy {
         };
         console.log(this.items)
         this.nativeElement = this.elementRef.nativeElement;
-        console.log(this.nativeElement)
+       
 
         this.input$ = fromEvent(this.nativeElement, 'input').subscribe(() => {
             const mentionDenotationCharacter = this.ngxMentionConfig
                 .denotationCharacter;
-           console.log(this.nativeElement.innerText)
+          
             if (this.nativeElement.innerText.endsWith(mentionDenotationCharacter)) {
                 this.startIndex = this.nativeElement.innerText.length;
                 this.searching = true;
@@ -161,12 +161,11 @@ export class NgxMentionDirective implements OnInit, OnChanges, OnDestroy {
      * @version 1.0.0
      */
     public ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes)
         if (changes.items && !changes.items.firstChange) {
             this.updateMentionListItems(this.items);
 
             if (changes.items.currentValue.length === 0) {
-               // this.stopSearch();
+               //this.stopSearch();
             }
         }
     }
@@ -231,12 +230,13 @@ export class NgxMentionDirective implements OnInit, OnChanges, OnDestroy {
                     selectedItem,
                 );
             }
-
+             
+            const empString = '&nbsp;';
             this.nativeElement.innerText =
                 this.nativeElement.innerText.substring(0, this.startIndex) +
-                selectedItemValue +
-                '\0';
-            
+                selectedItemValue;
+                this.nativeElement.innerHTML+=empString;
+            console.log(this.nativeElement.textContent)
             this.nativeElement.focus();
 
             const valueLength = this.nativeElement.innerText.length;
